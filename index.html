@@ -7,14 +7,72 @@
 		<body>
 			<a-scene>
 
-  
+			  <a-assets>
+   
+    <img id="skyText" src="img/img00379.jpg">
+    <img id="store" src="img/IKEA.jpg">
+    <img id="blueMap" src="img/map.jpeg">
 
-			 	<a-sky src="img/img00379.jpg" rotation="0 -130 0"></a-sky>
+            <script id="link" type="text/html">
+          <a-entity class="link"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            set-image="on: click; target: #image-360; src: ${src}"
+            sound="on: click; src: #click-sound"></a-entity>
+        </script>
+    
+  </a-assets>
 
-  				<a-sound src="audio/IKEAjam.mp3" autoplay="true" position="0 2 5"></a-sound>
+      <a-camera position="2 0 3">
+    <a-cursor id="cursor">
+      <a-animation begin="click" easing="ease-in" attribute="scale"
+                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+      <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                   from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+    </a-cursor>
+    <a-sound src="audio/IKEAjam.mp3" autoplay="true"></a-sound>
+  </a-camera>
+
+
+
+  <a-entity id="scene1">
+      <a-box color="#2F4F4F" opacity="0.5" onclick="nextScene()">  
+      <a-animation attribute="scale" begin="mouseenter" dur="300" to="1.3 1.3 1.3"></a-animation>
+  <a-animation attribute="scale" begin="mouseleave" dur="300" to="1 1 1"></a-animation>
+  <a-animation attribute="rotation" to="0 360 0" direction="alternate" dur="10000" repeat="indefinite"></a-animation></a-box>
+
+       <a-sky src="#skyText" rotation="0 -130 0"></a-sky>
+    </a-entity>
+
+    <a-entity id="scene2" visible="false">
+        <a-box src="#blueMap" onclick="lastScene()">
+            <a-animation attribute="scale" begin="mouseenter" dur="300" to="1.3 1.3 1.3"></a-animation>
+            <a-animation attribute="scale" begin="mouseleave" dur="300" to="1 1 1"></a-animation>
+          <a-animation attribute="rotation" to="0 360 0" direction="alternate" dur="10000" repeat="indefinite"></a-animation></a-box>
+      <a-sky src="#store"></a-sky>
+      </a-entity>
+
 			
 
 
 			</a-scene>
+
+			  <script type="text/javascript">
+
+  function nextScene() {
+    document.getElementById('scene1').setAttribute('visible', 'false')
+    document.getElementById('scene2').setAttribute('visible', 'true')
+  }
+  </script>
+
+    <script type="text/javascript">
+
+  function lastScene() {
+    document.getElementById('scene1').setAttribute('visible', 'true')
+    document.getElementById('scene2').setAttribute('visible', 'false')
+  }
+  </script>
 		</body>
 </html>
